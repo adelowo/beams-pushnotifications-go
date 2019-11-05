@@ -31,7 +31,7 @@ func main() {
 
 	mux.HandleFunc("/push", createPushNotificationHandler(beamsClient))
 	mux.HandleFunc("/auth", authenticateUser(beamsClient))
-	// mux.HandleFunc("/slack", handleWebhook(beamsClient))
+	mux.HandleFunc("/slack", handleWebhook)
 
 	if err := http.ListenAndServe(fmt.Sprintf(":%d", *port), mux); err != nil {
 		log.Fatal(err)
@@ -79,10 +79,6 @@ func createPushNotificationHandler(client pushnotifications.PushNotifications) h
 			Message string `json:"message"`
 		}
 
-		var encode = func(w http.ResponseWriter, v interface{}) {
-			json.NewEncoder(w).Encode(v)
-		}
-
 		if err := json.NewDecoder(r.Body).Decode(&data); err != nil {
 			w.WriteHeader(http.StatusBadRequest)
 			encode(w, response{
@@ -120,4 +116,7 @@ func createPushNotificationHandler(client pushnotifications.PushNotifications) h
 			Message: "Push notification sent successfully",
 		})
 	}
+}
+var encode = func(w http.ResponseWriter, v interface{}) {
+	_ = json.NewEncoder(w).Encode(v)
 }
