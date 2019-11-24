@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        PushNotifications.start(applicationContext, "d55174db-c627-4d87-b02d-5d0629a11ceb")
+        PushNotifications.start(applicationContext, "PUSHER_INSTANCE_ID")
         PushNotifications.addDeviceInterest("webhook-slack")
 
         val sharedPref: SharedPreferences = getSharedPreferences(PREF_NAME, 0)
@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             var uuid = UUID.randomUUID().toString()
 
             // get the token from the server
-            val serverUrl = "https://3e9128a8.ngrok.io/auth?user_id=${uuid}"
+            val serverUrl = "https://NGROK_URL/auth?user_id=${uuid}"
             val tokenProvider = BeamsTokenProvider(serverUrl,
                 object : AuthDataGetter {
                     override fun getAuthData(): AuthData {
