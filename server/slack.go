@@ -17,10 +17,19 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	type response struct {
 		Message string `json:"message"`
-		Status bool `json:"status"`
+		Status  bool   `json:"status"`
 	}
-	
-	if _,err := io.Copy(hasher, r.Body); err != nil {
+
+	if r.Header.Get("Webhook-Event-Type") != "v1.UserNotificationOpen" {
+		w.WriteHeader(http.StatusOK)
+		encode(w, response{
+			Message: "Ok",
+			Status:  true,
+		})
+		return
+	}
+
+	if _, err := io.Copy(hasher, r.Body); err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		encode(w, response{
 			Message: "Could not create crypto hash",
@@ -33,18 +42,9 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	if expectedHash != r.Header.Get("webhook-signature") {
 		w.WriteHeader(http.StatusBadRequest)
-		encode(w,response{
+		encode(w, response{
 			Message: "Invalid webhook signature",
 			Status:  false,
-		})
-		return
-	}
-
-	if r.Header.Get("Webhook-Event-Type") != "v1.UserNotificationOpen" {
-		w.WriteHeader(http.StatusOK)
-		encode(w,response{
-			Message: "Ok",
-			Status:  true,
 		})
 		return
 	}
@@ -59,29 +59,29 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 
 	_ = json.NewEncoder(buf).Encode(request)
 
-	req,err := http.NewRequest(http.MethodPost,os.Getenv("SLACK_HOOKS_URL"), buf)
+	req, err := http.NewRequest(http.MethodPost, os.Getenv("SLACK_HOOKS_URL"), buf)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		encode(w,response{
+		encode(w, response{
 			Message: "Could not send notification to Slack",
 			Status:  false,
 		})
 		return
 	}
 
-	resp,err := http.DefaultClient.Do(req)
+	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		encode(w,response{
+		encode(w, response{
 			Message: "Error while pinging Slack",
 			Status:  false,
 		})
 		return
 	}
 
-	if resp.StatusCode > http.StatusAccepted{
+	if resp.StatusCode > http.StatusAccepted {
 		w.WriteHeader(http.StatusInternalServerError)
-		encode(w,response{
+		encode(w, response{
 			Message: "Unexpected response from Slack",
 			Status:  false,
 		})
@@ -89,7 +89,7 @@ func handleWebhook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	encode(w,response{
+	encode(w, response{
 		Message: "Message sent to Slack successfully",
 		Status:  true,
 	})

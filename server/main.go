@@ -117,6 +117,7 @@ func createPushNotificationHandler(client pushnotifications.PushNotifications) h
 		})
 	}
 }
+
 var encode = func(w http.ResponseWriter, v interface{}) {
 	_ = json.NewEncoder(w).Encode(v)
 }

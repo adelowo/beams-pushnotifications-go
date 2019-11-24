@@ -1,6 +1,0 @@
-module Pods_BeamsWebhook {
-  umbrella header "Pods-BeamsWebhook-umbrella.h"
-
-  export *
-  module * { export * }
-}
