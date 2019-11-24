@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "981993120695",
+    "firebase_url": "https://pusher-demo-3adba.firebaseio.com",
+    "project_id": "pusher-demo-3adba",
+    "storage_bucket": "pusher-demo-3adba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981993120695:android:046e9c8b6ac3a3e46ebe32",
+        "android_client_info": {
+          "package_name": "com.example.pusherbeamsslackwebhook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981993120695-t7ivdtj2865434lijlgcv04entlrg62u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3HRqSSWhxRveFoWKRq6SXD7BCKlNkUsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981993120695-t7ivdtj2865434lijlgcv04entlrg62u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981993120695:android:edf77813af342e59",
+        "android_client_info": {
+          "package_name": "com.pusher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981993120695-t7ivdtj2865434lijlgcv04entlrg62u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3HRqSSWhxRveFoWKRq6SXD7BCKlNkUsM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981993120695-t7ivdtj2865434lijlgcv04entlrg62u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
